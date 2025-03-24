@@ -1,0 +1,289 @@
+ .login_body {
+    background: linear-gradient(135deg, #20c997, #0dcaf0);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 400px;
+    max-width: 90%;
+  }
+  .login-header {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+  .login-header img {
+    max-width: 200px;
+    height: auto;
+  }
+  .login-body {
+    padding: 30px;
+  }
+  .form-control {
+    border-radius: 25px;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+  }
+  .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(32, 201, 151, 0.25);
+    border-color: #20c997;
+  }
+  .btn-login {
+    background: #20c997;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 20px;
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-login:hover {
+    background: #1ba884;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(32, 201, 151, 0.3);
+  }
+  .input-group-text {
+    border-radius: 25px 0 0 25px;
+    background: transparent;
+    border-right: none;
+  }
+  .input-group .form-control {
+    border-radius: 0 25px 25px 0;
+    border-left: none;
+  }
+  .alert {
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  .forgot-password {
+    text-align: center;
+    margin-top: 15px;
+  }
+  .forgot-password a {
+    color: #20c997;
+    text-decoration: none;
+  }
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  
+/* .home_container{
+
+   display:block;
+
+}
+.logout_nav {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%;
+    height: 140px;
+    border-radius: 5px;
+    border: 1px solid #7f75dd; 
+    background: linear-gradient(135deg,  #f45728,#b827d5);
+    padding: 0 20px; 
+}
+
+.home-btn-login{
+    
+    
+    color: #000;
+    background: #7f75dd;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 20px;
+    width: 100%;
+    color: white;
+    font-size: 24px;
+  
+    text-shadow: 
+    -1px -1px 0 black,  
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black; 
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+
+  }
+  .home-btn-login:hover{
+    background: #20c997;
+    color: #ddd;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(32, 201, 151, 0.3);
+    border: 1px solid #ddd;
+
+  }
+  .home-btn-login {
+    background: linear-gradient(135deg, #7f75dd, #5a49c8); 
+    border: none;
+    border-radius: 30px;
+    padding: 14px 24px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+    box-shadow: 0 5px 15px rgba(127, 117, 221, 0.4); 
+    transition: all 0.3s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; 
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.home-btn-login:hover {
+    background: linear-gradient(135deg, #f45728,#b827d5);
+    color: white;
+    transform: translateY(0px);
+    transition: 0.5s;
+    box-shadow: 0 8px 20px rgba(32, 201, 151, 0.5);
+}
+
+
+.home-btn-login:active {
+    transform: scale(0.95);
+    transition: 0.5s;
+}
+
+
+.home-btn-login::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #f45728,#b827d5, #7f75dd);
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    transition: 0.5s;
+}
+
+.home-btn-login:hover::before {
+    opacity: 1;
+} */
+
+/* General Styles */
+/* .body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f45728, #b827d5);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+Home Container
+.home_container {
+    width: 90%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+Navigation Bar
+.logout_nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+Logo
+.logo img {
+    width: 180px;
+    height: auto;
+    border-radius: 10px;
+}
+
+Stylish Logout Button
+.home-btn-login {
+    background: linear-gradient(135deg, #7f75dd, #5a49c8);
+    border: none;
+    border-radius: 30px;
+    padding: 12px 24px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(127, 117, 221, 0.4);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+Hover Effect
+.home-btn-login:hover {
+    background: linear-gradient(135deg, #20c997, #0dcaf0);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(32, 201, 151, 0.5);
+}
+
+Click Effect
+.home-btn-login:active {
+    transform: scale(0.95);
+}
+
+Animated Border Glow
+.home-btn-login::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #20c997, #0dcaf0, #7f75dd);
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.home-btn-login:hover::before {
+    opacity: 1;
+}
+
+Responsive Design
+@media screen and (max-width: 768px) {
+    .logout_nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .home-btn-login {
+        margin-top: 10px;
+    }
+} */
