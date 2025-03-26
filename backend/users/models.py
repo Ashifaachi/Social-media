@@ -1,19 +1,20 @@
-from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
+from django.contrib.auth.models import User
 
-class CustomUser(AbstractUser):
-    phone = models.CharField(max_length=15, unique=True)
+# 1. USERS APP
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    followers = models.ManyToManyField('self', symmetrical=False, related_name='following', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    groups = models.ManyToManyField(
-        Group,
-        related_name="customuser_groups",  # Avoid conflict with auth.User.groups
-        blank=True
-    )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name="customuser_permissions",  # Avoid conflict with auth.User.user_permissions
-        blank=True
-    )
+class Follower(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_followers')
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_following')
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.username
+class BlockedUser(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blocker')
+    blocked_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blocked')
+    created_at = models.DateTimeField(auto_now_add=True)

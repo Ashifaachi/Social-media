@@ -1,13 +1,16 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
+from .models import UserProfile,Follower,BlockedUser
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "username", "email", "phone", "password")
+        fields = ("id", "username", "email", "password")
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -29,3 +32,19 @@ class LoginSerializer(serializers.Serializer):
                 "user": UserSerializer(user).data,
             }
         raise serializers.ValidationError("Invalid credentials")
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    followers = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    class Meta:
+        model = UserProfile
+        fields = ['id', 'user', 'bio', 'profile_picture', 'followers', 'created_at']
+
+class FollowerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Follower
+        fields = ['id', 'user', 'follower', 'created_at']
+
+class BlockedUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlockedUser
+        fields = ['id', 'user', 'blocked_user', 'created_at']

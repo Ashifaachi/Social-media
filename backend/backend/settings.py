@@ -44,6 +44,11 @@ INSTALLED_APPS = [
     "channels",  # WebSockets support
     "users",  # User authentication and profiles
     "posts",  # Posts, likes, and comments
+    "analytics",
+    "chat",
+    "explore",
+    "moderation",
+    "notifications",
     
 ]
 
@@ -164,5 +169,5 @@ SIMPLE_JWT = {
 }
 
 
-AUTH_USER_MODEL = "users.CustomUser"
+
 
