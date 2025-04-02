@@ -2,12 +2,12 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import viewsets, permissions
-from .models import Chat, Message
-from .serializers import ChatSerializer, MessageSerializer
+from .models import ChatRoom, Message
+from .serializers import ChatRoomSerializer, MessageSerializer
 
 class ChatViewSet(viewsets.ModelViewSet):
-    queryset = Chat.objects.all()
-    serializer_class = ChatSerializer
+    queryset = ChatRoom.objects.all()
+    serializer_class = ChatRoomSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class MessageViewSet(viewsets.ModelViewSet):

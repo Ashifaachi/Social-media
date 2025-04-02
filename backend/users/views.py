@@ -1,45 +1,45 @@
-# from rest_framework import generics, status
-# from rest_framework.response import Response
-# from .models import UserProfile,BlockedUser,Follower
-# from rest_framework.permissions import AllowAny
-# from .serializers import UserSerializer, LoginSerializer
-# from rest_framework_simplejwt.tokens import RefreshToken
-# from rest_framework.views import APIView
-# from rest_framework.permissions import IsAuthenticated
-# User = UserProfile
+# # from rest_framework import generics, status
+# # from rest_framework.response import Response
+# # from .models import UserProfile,BlockedUser,Follower
+# # from rest_framework.permissions import AllowAny
+# # from .serializers import UserSerializer, LoginSerializer
+# # from rest_framework_simplejwt.tokens import RefreshToken
+# # from rest_framework.views import APIView
+# # from rest_framework.permissions import IsAuthenticated
+# # User = UserProfile
 
-# class RegisterView(generics.CreateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-#     permission_classes = [AllowAny]
+# # class RegisterView(generics.CreateAPIView):
+# #     queryset = User.objects.all()
+# #     serializer_class = UserSerializer
+# #     permission_classes = [AllowAny]
 
-# class LoginView(generics.GenericAPIView):
-#     serializer_class = LoginSerializer
-#     permission_classes = [AllowAny]
+# # class LoginView(generics.GenericAPIView):
+# #     serializer_class = LoginSerializer
+# #     permission_classes = [AllowAny]
 
-#     def post(self, request):
-#         serializer = self.get_serializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         return Response(serializer.validated_data, status=status.HTTP_200_OK)
+# #     def post(self, request):
+# #         serializer = self.get_serializer(data=request.data)
+# #         serializer.is_valid(raise_exception=True)
+# #         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
-# class LogoutView(APIView):
-#     def post(self, request):
-#         try:
-#             refresh_token = request.data["refresh"]
-#             token = RefreshToken(refresh_token)
-#             token.blacklist()
-#             return Response({"message": "Logged out successfully"}, status=status.HTTP_200_OK)
-#         except Exception as e:
-#             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
+# # class LogoutView(APIView):
+# #     def post(self, request):
+# #         try:
+# #             refresh_token = request.data["refresh"]
+# #             token = RefreshToken(refresh_token)
+# #             token.blacklist()
+# #             return Response({"message": "Logged out successfully"}, status=status.HTTP_200_OK)
+# #         except Exception as e:
+# #             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-# class HomeView(APIView):
-#     permission_classes = [IsAuthenticated]  # Ensure login is required
 
-#     def get(self, request):
-#         return Response({"message": "Hello World"}, status=200)
+
+# # class HomeView(APIView):
+# #     permission_classes = [IsAuthenticated]  # Ensure login is required
+
+# #     def get(self, request):
+# #         return Response({"message": "Hello World"}, status=200)
 
 
 from rest_framework import generics, status
@@ -69,14 +69,52 @@ class LoginView(APIView):
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-### ✅ USER PROFILE VIEW (Retrieve & Update Profile)
+# ### ✅ USER PROFILE VIEW (Retrieve & Update Profile)
+# class UserProfileView(generics.RetrieveUpdateAPIView):
+#     queryset = UserProfile.objects.all()
+#     serializer_class = UserProfileSerializer
+#     permission_classes = [IsAuthenticated]
+
+#     def get_object(self):
+#         return self.request.user.userprofile  # Fetch the profile of the logged-in user
+
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
+from .models import UserProfile
+from .serializers import UserProfileSerializer
+
 class UserProfileView(generics.RetrieveUpdateAPIView):
-    queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        return self.request.user.userprofile  # Fetch the profile of the logged-in user
+        """Retrieve the user's profile or create it if it doesn’t exist."""
+        profile, created = UserProfile.objects.get_or_create(user=self.request.user)
+        return profile
+
+    def get(self, request, *args, **kwargs):
+        """Show user profile if exists, else create and return new profile."""
+        profile = self.get_object()
+        serializer = self.get_serializer(profile)
+        return Response(serializer.data, status=status.HTTP_200_OK if not profile else status.HTTP_201_CREATED)
+
+    def put(self, request, *args, **kwargs):
+        """Update the entire profile."""
+        profile = self.get_object()
+        serializer = self.get_serializer(profile, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def patch(self, request, *args, **kwargs):
+        """Partially update the profile."""
+        profile = self.get_object()
+        serializer = self.get_serializer(profile, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 ### ✅ FOLLOW USER
 class FollowUserView(APIView):
@@ -164,3 +202,6 @@ class LogoutView(APIView):
             return Response({"message": "Logged out successfully"}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+

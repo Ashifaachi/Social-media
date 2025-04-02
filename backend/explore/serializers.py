@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Notification
+from .models import TrendingPost, Recommendation
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
 
